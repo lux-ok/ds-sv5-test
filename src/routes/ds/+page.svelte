@@ -1,6 +1,6 @@
 <script lang="ts">
-	// import { Ds } from '@lux721/ds';
-	// import type { DsCore, Loc } from 'ds';
+	import { Ds } from '@lux721/ds';
+	import type { DsCore, Loc } from '@lux721/ds';
 
 	import * as d from './test-data/object';
 
