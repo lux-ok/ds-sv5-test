@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { Ds } from '@lux721/ds';
-	import type { DsCore, Loc } from '@lux721/ds';
+	// import { Ds } from '@lux721/ds';
+	// import type { DsCore, Loc } from '@lux721/ds';
+	import { Dsm } from '../../../../ds/src';
+	import type { DsCore, Loc } from '../../../../ds/src';
 
 	import * as d from './test-data/object';
 
@@ -8,8 +10,8 @@
 		tables: [],
 		tablesSel: [],
 		rowsSel: [],
-		state: 0,
-		stateEx: 0
+		mode: undefined,
+		state: undefined
 	});
 
 	/** ! Don't do like this, no reactive ! */
@@ -24,7 +26,7 @@
 	const core2 = new c<d.MyType>();
 	/** ! Don't do like this, no reactive ! */
 
-	const ds = new Ds({ core, useClone: true });
+	const ds = new Dsm({ core, useClone: true });
 
 	// - common vars
 	let changeSel = $state(false);
