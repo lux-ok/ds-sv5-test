@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Dsm, DsState, dsStateStr } from '@lux721/ds';
-	import type { DsCore, Loc } from '@lux721/ds';
-	// import { Dsm } from '../../../../ds/src';
-	// import type { DsCore, Loc } from '../../../../ds/src';
+	// import { Dsm, DsState, dsStateStr } from '@lux721/ds';
+	// import type { DsCore, Loc } from '@lux721/ds';
+	import { Dsm, DsState, dsStateStr } from '../../../../ds/src';
+	import type { DsCore, Loc } from '../../../../ds/src';
 
 	import * as d from './test-data/object';
 
@@ -152,28 +152,41 @@
 </div>
 
 <cmd-div>
-	<button onclick={() => ds.start('fetch')} disabled={ds.busy}>Fetch Start()</button>
+	<select name="sourceTableDsm" id="sourceTableDsm" bind:value={sourceTable} class="w-24">
+		<option value={d.table0}>table0</option>
+		<option value={d.table1}>table1</option>
+		<option value={d.table2}>table2</option>
+		<option value={d.table3}>table3</option>
+		<option value={d.table4}>table4</option>
+		<option value={d.table5}>table5</option>
+	</select>
 
-	{#if ds.state === DsState.Starting}
-		<select name="sourceTable" id="sourceTable" bind:value={sourceTable} class="w-24">
-			<option value={d.table0}>table0</option>
-			<option value={d.table1}>table1</option>
-			<option value={d.table2}>table2</option>
-			<option value={d.table3}>table3</option>
-			<option value={d.table4}>table4</option>
-			<option value={d.table5}>table5</option>
-		</select>
-		<button onclick={() => ds.submit()}>submit()</button>
+	<button class="disabled:opacity-50" onclick={() => ds.start('fetch')} disabled={ds.busy}
+		>Fetch</button
+	>
+	<button
+		class="disabled:opacity-50"
+		onclick={() => ds.start('fetch', 'submitted')}
+		disabled={ds.busy}>Fetch Submitted</button
+	>
+	<button
+		class="disabled:opacity-50"
+		onclick={() => ds.start('fetch', 'applied')}
+		disabled={ds.busy}>Fetch Applied</button
+	>
+
+	{#if ds.isStarting}
+		<button onclick={() => ds.submit()}>submit</button>
 		<button onclick={() => ds.submit('cancel')}>cancel</button>
 	{/if}
 
-	{#if ds.state === DsState.Submitting}
-		<button onclick={() => ds.apply()}>apply()</button>
-		<button onclick={() => ds.apply('cancel')}>cancel</button>
+	{#if ds.isSubmitting}
+		<button onclick={() => ds.apply()}>confirm()</button>
+		<button onclick={() => ds.apply('cancel')}>abort</button>
 	{/if}
 
 	<div>Mode: {ds.mode.toUpperCase()}</div>
-	<div>State: {dsStateStr(ds.state)}</div>
+	<div>State: {ds.stateStr}</div>
 </cmd-div>
 
 <hr />
