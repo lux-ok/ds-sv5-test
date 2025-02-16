@@ -1,17 +1,17 @@
 <script lang="ts">
-	// import { Ds } from '@lux721/ds';
-	// import type { DsCore, Loc } from '@lux721/ds';
-	import { Dsm } from '../../../../ds/src';
-	import type { DsCore, Loc } from '../../../../ds/src';
+	import { Dsm, DsState, dsStateStr } from '@lux721/ds';
+	import type { DsCore, Loc } from '@lux721/ds';
+	// import { Dsm } from '../../../../ds/src';
+	// import type { DsCore, Loc } from '../../../../ds/src';
 
 	import * as d from './test-data/object';
 
 	const core: DsCore<d.MyType> = $state({
 		tables: [],
 		tablesSel: [],
-		rowsSel: [],
-		mode: undefined,
-		state: undefined
+		rowsSel: []
+		// mode: undefined,
+		// state: undefined
 	});
 
 	/** ! Don't do like this, no reactive ! */
@@ -104,7 +104,26 @@
 		});
 	}
 
+	// ds.rows([], { select: 'test' });
+	// ds.rows([], { select: [0], which: 'all', place: 'place' });
 	// onMount(() => ds.newTables(d.tables, { select: [0], place: 'newTableAbove', changeSel }));
+
+	ds.registerMode('fetch', {
+		applied: async () => {
+			console.log('fetch hook -> applied(): Fetching data...');
+			return new Promise<{ success: boolean; data: d.MyType[] | null }>((resolve) => {
+				setTimeout(() => {
+					resolve({ success: true, data: sourceTable });
+				}, 1000);
+			});
+		},
+		applySuccess: (data) => {
+			// console.log('fetch hook -> applySuccess(): Data fetched successfully');
+			// console.log(data);
+			if (data === undefined) return;
+			ds.newTable(data);
+		}
+	});
 </script>
 
 <svelte:window onkeydown={(e) => e.code === 'Escape' && e.ctrlKey && ds.deselectAll()} />
@@ -131,6 +150,31 @@
 		{/each}
 	</div>
 </div>
+
+<cmd-div>
+	<button onclick={() => ds.start('fetch')} disabled={ds.busy}>Fetch Start()</button>
+
+	{#if ds.state === DsState.Starting}
+		<select name="sourceTable" id="sourceTable" bind:value={sourceTable} class="w-24">
+			<option value={d.table0}>table0</option>
+			<option value={d.table1}>table1</option>
+			<option value={d.table2}>table2</option>
+			<option value={d.table3}>table3</option>
+			<option value={d.table4}>table4</option>
+			<option value={d.table5}>table5</option>
+		</select>
+		<button onclick={() => ds.submit()}>submit()</button>
+		<button onclick={() => ds.submit('cancel')}>cancel</button>
+	{/if}
+
+	{#if ds.state === DsState.Submitting}
+		<button onclick={() => ds.apply()}>apply()</button>
+		<button onclick={() => ds.apply('cancel')}>cancel</button>
+	{/if}
+
+	<div>Mode: {ds.mode.toUpperCase()}</div>
+	<div>State: {dsStateStr(ds.state)}</div>
+</cmd-div>
 
 <hr />
 
