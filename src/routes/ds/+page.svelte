@@ -181,7 +181,7 @@
 	{/if}
 
 	{#if ds.isSubmitting}
-		<button onclick={() => ds.apply()}>confirm()</button>
+		<button onclick={() => ds.apply()}>confirm</button>
 		<button onclick={() => ds.apply('cancel')}>abort</button>
 	{/if}
 
