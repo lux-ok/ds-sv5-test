@@ -10,8 +10,6 @@
 		tables: [],
 		tablesSel: [],
 		rowsSel: []
-		// mode: undefined,
-		// state: undefined
 	});
 
 	/** ! Don't do like this, no reactive ! */
@@ -31,8 +29,8 @@
 	// - common vars
 	let changeSel = $state(false);
 	let sort = $state(false);
-	let sourceTable: d.MyType[] = $state([]);
-	let sourceRow: d.MyType[] = $state([]);
+	let sourceTable: d.MyType[] = $state(d.table0);
+	let sourceRow: d.MyType = $state(d.row0);
 
 	// - newTables
 	let newTablesSelect: 'tables' | '' = $state('');
@@ -65,7 +63,7 @@
 	let newRowsWhich: 'top' | 'all' | 'bottom' | '' = $state('all');
 	let newRowsPlace: 'above' | 'replace' | 'below' | '' = $state('below');
 	function newRowsClick() {
-		ds.newRows(sourceRow, {
+		ds.newRows([sourceRow], {
 			select: newRowsSelect !== '' ? `${newRowsSelect}` : undefined,
 			which: newRowsWhich !== '' ? `${newRowsWhich}` : undefined,
 			place: newRowsPlace !== '' ? `${newRowsPlace}` : undefined,
@@ -124,6 +122,23 @@
 			ds.newTable(data);
 		}
 	});
+
+	ds.registerMode('update', {
+		applied: async () => {
+			console.log('update hook -> applied(): Updating data...');
+			return new Promise<{ success: boolean; data: d.MyType | null }>((resolve) => {
+				setTimeout(() => {
+					resolve({ success: true, data: sourceRow });
+				}, 1000);
+			});
+		},
+		applySuccess: (data) => {
+			// console.log('fetch hook -> applySuccess(): Data fetched successfully');
+			// console.log(data);
+			if (data === undefined) return;
+			ds.rows([data], { select: 'rows', which: 'all', place: 'replace', changeSel: true });
+		}
+	});
 </script>
 
 <svelte:window onkeydown={(e) => e.code === 'Escape' && e.ctrlKey && ds.deselectAll()} />
@@ -151,7 +166,10 @@
 	</div>
 </div>
 
+<hr />
+
 <cmd-div>
+	<p>source:</p>
 	<select name="sourceTableDsm" id="sourceTableDsm" bind:value={sourceTable} class="w-24">
 		<option value={d.table0}>table0</option>
 		<option value={d.table1}>table1</option>
@@ -175,6 +193,55 @@
 		disabled={ds.busy}>Fetch Applied</button
 	>
 
+	<div>Mode: {ds.mode.toUpperCase()}</div>
+	<div>State: {ds.stateStr}</div>
+</cmd-div>
+
+<cmd-div>
+	<p>source:</p>
+	<select name="sourceRowDsm" id="sourceRowDsm" bind:value={sourceRow} class="w-24">
+		<option value={d.row0}>row0</option>
+		<option value={d.row1}>row1</option>
+		<option value={d.row2}>row2</option>
+		<option value={d.row3}>row3</option>
+		<option value={d.row4}>row4</option>
+		<option value={d.row10}>row10</option>
+		<option value={d.row11}>row11</option>
+		<option value={d.row12}>row12</option>
+		<option value={d.row13}>row13</option>
+		<option value={d.row14}>row14</option>
+		<option value={d.row20}>row20</option>
+		<option value={d.row21}>row21</option>
+		<option value={d.row22}>row22</option>
+		<option value={d.row23}>row23</option>
+		<option value={d.row24}>row24</option>
+		<option value={d.row30}>row30</option>
+		<option value={d.row31}>row31</option>
+		<option value={d.row32}>row32</option>
+		<option value={d.row33}>row33</option>
+		<option value={d.row34}>row34</option>
+		<option value={d.row40}>row40</option>
+		<option value={d.row41}>row41</option>
+		<option value={d.row42}>row42</option>
+		<option value={d.row43}>row43</option>
+		<option value={d.row44}>row44</option>
+		<option value={d.row50}>row50</option>
+		<option value={d.row51}>row51</option>
+		<option value={d.row52}>row52</option>
+		<option value={d.row53}>row53</option>
+		<option value={d.row54}>row54</option>
+	</select>
+
+	<button
+		class="disabled:opacity-50"
+		onclick={() => ds.start('update', 'submitted')}
+		disabled={ds.busy}>update row</button
+	>
+</cmd-div>
+
+<hr />
+
+<cmd-div class="min-h-14">
 	{#if ds.isStarting}
 		<button onclick={() => ds.submit()}>submit</button>
 		<button onclick={() => ds.submit('cancel')}>cancel</button>
@@ -184,9 +251,6 @@
 		<button onclick={() => ds.apply()}>confirm</button>
 		<button onclick={() => ds.apply('cancel')}>abort</button>
 	{/if}
-
-	<div>Mode: {ds.mode.toUpperCase()}</div>
-	<div>State: {ds.stateStr}</div>
 </cmd-div>
 
 <hr />
@@ -257,36 +321,36 @@
 
 	<p>source:</p>
 	<select name="sourceRow" id="sourceRow" bind:value={sourceRow} class="w-24">
-		<option value={[d.row0]}>row0</option>
-		<option value={[d.row1]}>row1</option>
-		<option value={[d.row2]}>row2</option>
-		<option value={[d.row3]}>row3</option>
-		<option value={[d.row4]}>row4</option>
-		<option value={[d.row10]}>row10</option>
-		<option value={[d.row11]}>row11</option>
-		<option value={[d.row12]}>row12</option>
-		<option value={[d.row13]}>row13</option>
-		<option value={[d.row14]}>row14</option>
-		<option value={[d.row20]}>row20</option>
-		<option value={[d.row21]}>row21</option>
-		<option value={[d.row22]}>row22</option>
-		<option value={[d.row23]}>row23</option>
-		<option value={[d.row24]}>row24</option>
-		<option value={[d.row30]}>row30</option>
-		<option value={[d.row31]}>row31</option>
-		<option value={[d.row32]}>row32</option>
-		<option value={[d.row33]}>row33</option>
-		<option value={[d.row34]}>row34</option>
-		<option value={[d.row40]}>row40</option>
-		<option value={[d.row41]}>row41</option>
-		<option value={[d.row42]}>row42</option>
-		<option value={[d.row43]}>row43</option>
-		<option value={[d.row44]}>row44</option>
-		<option value={[d.row50]}>row50</option>
-		<option value={[d.row51]}>row51</option>
-		<option value={[d.row52]}>row52</option>
-		<option value={[d.row53]}>row53</option>
-		<option value={[d.row54]}>row54</option>
+		<option value={d.row0}>row0</option>
+		<option value={d.row1}>row1</option>
+		<option value={d.row2}>row2</option>
+		<option value={d.row3}>row3</option>
+		<option value={d.row4}>row4</option>
+		<option value={d.row10}>row10</option>
+		<option value={d.row11}>row11</option>
+		<option value={d.row12}>row12</option>
+		<option value={d.row13}>row13</option>
+		<option value={d.row14}>row14</option>
+		<option value={d.row20}>row20</option>
+		<option value={d.row21}>row21</option>
+		<option value={d.row22}>row22</option>
+		<option value={d.row23}>row23</option>
+		<option value={d.row24}>row24</option>
+		<option value={d.row30}>row30</option>
+		<option value={d.row31}>row31</option>
+		<option value={d.row32}>row32</option>
+		<option value={d.row33}>row33</option>
+		<option value={d.row34}>row34</option>
+		<option value={d.row40}>row40</option>
+		<option value={d.row41}>row41</option>
+		<option value={d.row42}>row42</option>
+		<option value={d.row43}>row43</option>
+		<option value={d.row44}>row44</option>
+		<option value={d.row50}>row50</option>
+		<option value={d.row51}>row51</option>
+		<option value={d.row52}>row52</option>
+		<option value={d.row53}>row53</option>
+		<option value={d.row54}>row54</option>
 	</select>
 
 	<p>select:</p>
