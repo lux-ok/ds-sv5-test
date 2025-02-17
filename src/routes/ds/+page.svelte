@@ -4,7 +4,7 @@
 	import { Dsm, DsState, dsStateStr } from '../../../../ds/src';
 	import type { DsCore, Loc } from '../../../../ds/src';
 
-	import * as d from './test-data/object';
+	import * as d from '../../lib/test-data/object';
 
 	const core: DsCore<d.MyType> = $state({
 		tables: [],

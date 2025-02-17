@@ -4,7 +4,7 @@
     "": {
       "name": "ds-test",
       "dependencies": {
-        "@lux721/ds": "^0.1.1",
+        "@lux721/ds": "0.2.2",
         "@supabase/supabase-js": "^2.48.0",
         "@tailwindcss/typography": "^0.5.16",
         "lucide-svelte": "^0.469.0",
@@ -104,7 +104,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.25", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ=="],
 
-    "@lux721/ds": ["@lux721/ds@0.1.1", "", {}, "sha512-4kUsKgPYHRIld0Mq9N0lZQo7gmAp4wP44dRuQLbcJxuZtHkRtBDzyx1/uFeYNzGw+WP18kqlJr2rFB0M1JWRMw=="],
+    "@lux721/ds": ["@lux721/ds@0.2.2", "", {}, "sha512-j8blYwBnMbvKfWqUPvqP0HQnzG1jHgkr0V523hqulkDNHNWq5FzT15WlhaN+ItP+2501CaAw74ANatcqjdbcxA=="],
 
     "@nodelib/fs.scandir": ["@nodelib/fs.scandir@2.1.5", "", { "dependencies": { "@nodelib/fs.stat": "2.0.5", "run-parallel": "^1.1.9" } }, "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="],
 
