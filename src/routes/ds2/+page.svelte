@@ -1,6 +1,24 @@
 <script lang="ts">
 	import { type MyType, allTables, allRows } from '$lib/test-data/object';
-	import { Dsm, type DsCore } from '@lux721/ds';
+	// import { Dsm, type DsCore } from '@lux721/ds';
+	// import {
+	// 	addBulkTables,
+	// 	addTableAbove,
+	// 	addTableBelow,
+	// 	delRow,
+	// 	delTable,
+	// 	delTables,
+	// 	popRow,
+	// 	popTable,
+	// 	pushRow,
+	// 	pushTable,
+	// 	shiftRow,
+	// 	shiftTable,
+	// 	unshiftRow,
+	// 	unshiftTable
+	// } from '@lux721/ds/func';
+
+	import { Dsm, type DsCore } from '../../../../ds/src';
 	import {
 		addBulkTables,
 		addTableAbove,
@@ -16,7 +34,8 @@
 		shiftTable,
 		unshiftRow,
 		unshiftTable
-	} from '@lux721/ds/func';
+	} from '../../../../ds/src/func';
+
 	import SelectTable from '$lib/components/ds/select-table.svelte';
 	import SelectRow from '$lib/components/ds/select-row.svelte';
 	import SelectedTables from '$lib/components/ds/selected-tables.svelte';
@@ -37,6 +56,8 @@
 	function handleDelTable(tid: number) {
 		delTable(ds, { select: tid });
 	}
+
+	console.log('Ds Version:', ds.version);
 </script>
 
 <!-- - deselect all tables and rows - -->
@@ -78,6 +99,11 @@
 	<button onclick={() => pushRow(ds, srcRow, { changeSel })}>pushRow</button>
 	<button onclick={() => shiftRow(ds, { changeSel })}>shiftRow</button>
 	<button onclick={() => popRow(ds, { changeSel })}>popRow</button>
+	---
+	<button onclick={() => shiftRow(ds, { select: 0, changeSel })}>shiftRow0</button>
+	<button onclick={() => popRow(ds, { select: 0, changeSel })}>popRow0</button>
+	---
+	<button onclick={() => delTables(ds, { select: [0], changeSel })}>delTables</button>
 </section>
 
 <section>
