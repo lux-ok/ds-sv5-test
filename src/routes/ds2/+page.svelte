@@ -24,6 +24,7 @@
 		addTableAbove,
 		addTableBelow,
 		delRow,
+		delRows,
 		delTable,
 		delTables,
 		popRow,
@@ -99,6 +100,8 @@
 	<button onclick={() => pushRow(ds, srcRow, { changeSel })}>pushRow</button>
 	<button onclick={() => shiftRow(ds, { changeSel })}>shiftRow</button>
 	<button onclick={() => popRow(ds, { changeSel })}>popRow</button>
+	<button onclick={() => delRow(ds, { changeSel })}>delRow</button>
+	<button onclick={() => delRows(ds, { changeSel })}>delRows</button>
 	---
 	<button onclick={() => shiftRow(ds, { select: 0, changeSel })}>shiftRow0</button>
 	<button onclick={() => popRow(ds, { select: 0, changeSel })}>popRow0</button>
