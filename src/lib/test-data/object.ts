@@ -48,4 +48,39 @@ export const row53 = { id: 53, rem: 'rem53' };
 export const row54 = { id: 54, rem: 'rem54' };
 export const table5: MyType[] = [row50, row51, row52, row53, row54];
 
-export const tables: MyType[][] = [table1, table2, table3, table4, table5];
+// export const tables: MyType[][] = [table1, table2, table3, table4, table5];
+
+export const allRows: MyType[] = [
+	row0,
+	row1,
+	row2,
+	row3,
+	row4,
+	row10,
+	row11,
+	row12,
+	row13,
+	row14,
+	row20,
+	row21,
+	row22,
+	row23,
+	row24,
+	row30,
+	row31,
+	row32,
+	row33,
+	row34,
+	row40,
+	row41,
+	row42,
+	row43,
+	row44,
+	row50,
+	row51,
+	row52,
+	row53,
+	row54
+];
+
+export const allTables: MyType[][] = [table0, table1, table2, table3, table4, table5];
