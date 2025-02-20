@@ -1,24 +1,6 @@
 <script lang="ts">
 	import { type MyType, allTables, allRows } from '$lib/test-data/object';
-	// import { Dsm, type DsCore } from '@lux721/ds';
-	// import {
-	// 	addBulkTables,
-	// 	addTableAbove,
-	// 	addTableBelow,
-	// 	delRow,
-	// 	delTable,
-	// 	delTables,
-	// 	popRow,
-	// 	popTable,
-	// 	pushRow,
-	// 	pushTable,
-	// 	shiftRow,
-	// 	shiftTable,
-	// 	unshiftRow,
-	// 	unshiftTable
-	// } from '@lux721/ds/func';
-
-	import { Dsm, type DsCore } from '../../../../ds/src';
+	import { Dsm, type DsCore } from '@lux721/ds';
 	import {
 		addBulkTables,
 		addTableAbove,
@@ -35,7 +17,26 @@
 		shiftTable,
 		unshiftRow,
 		unshiftTable
-	} from '../../../../ds/src/func';
+	} from '@lux721/ds/func';
+
+	// import { Dsm, type DsCore } from '../../../../ds/src';
+	// import {
+	// 	addBulkTables,
+	// 	addTableAbove,
+	// 	addTableBelow,
+	// 	delRow,
+	// 	delRows,
+	// 	delTable,
+	// 	delTables,
+	// 	popRow,
+	// 	popTable,
+	// 	pushRow,
+	// 	pushTable,
+	// 	shiftRow,
+	// 	shiftTable,
+	// 	unshiftRow,
+	// 	unshiftTable
+	// } from '../../../../ds/src/func';
 
 	import SelectTable from '$lib/components/ds/select-table.svelte';
 	import SelectRow from '$lib/components/ds/select-row.svelte';
