@@ -71,7 +71,7 @@
 	/>
 </section>
 
-<style>
+<style lang="postcss">
 	input {
 		border-width: 1px;
 		padding: 0.5rem 1rem;
@@ -83,6 +83,7 @@
 
 	.invalid {
 		color: orangered;
+		box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.5);
 	}
 
 	section {
